@@ -11,6 +11,10 @@ router.post(
   projectControllers.addProject,
 )
 
+router.get('/')
+
+router.get('/:projectId')
+
 router.delete('/delete', projectControllers.deleteProject)
 
 export const projectRoutes = router

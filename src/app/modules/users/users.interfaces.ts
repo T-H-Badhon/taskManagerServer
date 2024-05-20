@@ -4,6 +4,7 @@ export type TUser = {
   name: string
   email: string
   password: string
+  role: 'MANAGER' | 'EMPLOYEE' | 'ADMIN'
 }
 
 export type TLoginUser = {

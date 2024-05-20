@@ -21,7 +21,7 @@ const userValidationSchema = z.object({
 
 const loginCredentialValidationSchema = z.object({
   body: z.object({
-    emails: z.string({ required_error: 'emails is required' }),
+    email: z.string({ required_error: 'emails is required' }),
     password: z.string({ required_error: 'password is required' }),
   }),
 })

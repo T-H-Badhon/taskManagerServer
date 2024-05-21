@@ -18,7 +18,5 @@ export const queryFilter = (query: Record<string, unknown>) => {
     filter.dueDate = { $lte: filter.dueDate }
   }
 
-  console.log(filter)
-
   return filter
 }

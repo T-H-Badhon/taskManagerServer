@@ -19,7 +19,7 @@ router.get('/', categoryControllers.allCategories)
 router.get('/:categoryId', categoryControllers.oneCategory)
 
 router.patch(
-  '/update-status/:categoryId',
+  '/update/:categoryId',
   auth('ADMIN', 'MANAGER'),
   validate(categoryValidationSchema),
   categoryControllers.updateCategory,

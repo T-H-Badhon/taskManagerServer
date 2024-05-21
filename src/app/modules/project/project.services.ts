@@ -13,7 +13,11 @@ const addProject = async (projectData: TProject) => {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const allProjects = async (query: any) => {
-  const projects = await Project.find(query)
+  let filter = {}
+  if (query?.searchTerm) {
+    filter = { projectName: { $regex: query.searchTerm, $options: 'i' } }
+  }
+  const projects = await Project.find(filter)
 
   return projects
 }

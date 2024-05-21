@@ -4,6 +4,7 @@ export type TUser = {
   name: string
   email: string
   password: string
+  speciality?: string
   role: 'MANAGER' | 'EMPLOYEE' | 'ADMIN'
 }
 

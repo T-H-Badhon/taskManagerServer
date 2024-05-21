@@ -7,6 +7,7 @@ export type TTask = {
   priority: 'HIGH' | 'MEDIUM' | 'LOW'
   status: 'TO-DO' | 'IN-PROGRESS' | 'COMPLETED'
   taskDependencies: string[]
+  categoryId: Types.ObjectId
   projectId: Types.ObjectId
   assignedEmployeeId: Types.ObjectId
   attachedFiles: string[]

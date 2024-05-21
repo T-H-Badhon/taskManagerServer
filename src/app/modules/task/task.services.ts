@@ -5,6 +5,7 @@ import {
   attachedFilesUpdateManager,
   dependencyUpdateManager,
 } from '../../utilities/arrayElementsUpdate'
+import { queryFilter } from '../../middlewares/queryBuilder'
 
 const addTask = async (payload: any) => {
   const { reqDependencies, reqFiles, ...taskData } = payload
@@ -31,7 +32,8 @@ const addTask = async (payload: any) => {
 }
 
 const allTasks = async (query: Record<string, unknown>) => {
-  const result = await Task.find(query)
+  const filter = queryFilter(query)
+  const result = await Task.find(filter)
 
   return result
 }

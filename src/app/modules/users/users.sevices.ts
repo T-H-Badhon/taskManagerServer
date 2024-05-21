@@ -50,7 +50,14 @@ const loginUser = async (loginCredential: TLoginUser) => {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const allUsers = async (query: any) => {
-  const users = await User.find(query).select('-password')
+  let filter = {}
+  if (query?.searchTerm) {
+    filter = {
+      name: { $regex: query.searchTerm, $options: 'i' },
+      speciality: { $regex: query.searchTerm, $options: 'i' },
+    }
+  }
+  const users = await User.find(filter).select('-password')
 
   return users
 }

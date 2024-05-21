@@ -5,11 +5,13 @@ import {
   projectValidationSchema,
   updatedProjectValidationSchema,
 } from './project.validationScema'
+import auth from '../../middlewares/auth'
 
 const router = Router()
 
 router.post(
   '/add',
+  auth('ADMIN', 'MANAGER'),
   validate(projectValidationSchema),
   projectControllers.addProject,
 )
@@ -20,10 +22,15 @@ router.get('/:projectId', projectControllers.oneProject)
 
 router.patch(
   '/:projectId',
+  auth('ADMIN', 'MANAGER'),
   validate(updatedProjectValidationSchema),
   projectControllers.updateStatus,
 )
 
-router.delete('/delete/:projectId', projectControllers.deleteProject)
+router.delete(
+  '/delete/:projectId',
+  auth('ADMIN', 'MANAGER'),
+  projectControllers.deleteProject,
+)
 
 export const projectRoutes = router

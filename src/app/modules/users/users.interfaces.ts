@@ -15,4 +15,5 @@ export type TLoginUser = {
 export type TtokenInfo = {
   _id: Types.ObjectId
   email: string
+  role: 'ADMIN' | 'MANAGER' | 'EMPLOYEE'
 }

@@ -31,6 +31,7 @@ const loginUser = async (loginCredential: TLoginUser) => {
 
     const tokenInfo: TtokenInfo = {
       _id: loginUser._id,
+      role: loginUser.role,
       email: loginUser.email,
     }
     const token = jwt.sign(tokenInfo, config.access_secrate as string, {

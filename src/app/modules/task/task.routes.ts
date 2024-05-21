@@ -1,13 +1,14 @@
 import { Router } from 'express'
+import { taskControllers } from './task.controllers'
 
 const router = Router()
 
-router.post('/add')
+router.post('/add', taskControllers.addTask)
 
-router.get('/')
+router.get('/', taskControllers.allTasks)
 
-router.get('/:taskId')
+router.get('/:taskId', taskControllers.oneTask)
 
-router.patch('/update')
+router.patch('/update/:taskId', taskControllers.updateTask)
 
-router.delete('/delete')
+router.delete('/delete/:taskId', taskControllers.deleteTask)

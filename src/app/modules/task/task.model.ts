@@ -25,9 +25,10 @@ const taskSchema = new Schema<TTask>(
       enum: ['TO-DO', 'IN-PROGRESS', 'COMPLETED'],
       default: 'TO-DO',
     },
-    taskDependencis: {
-      type: [String],
+    taskDependencies: {
+      type: [Schema.Types.ObjectId],
       default: [],
+      ref: 'task',
     },
     projectId: {
       type: Schema.Types.ObjectId,

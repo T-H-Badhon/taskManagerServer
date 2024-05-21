@@ -11,13 +11,13 @@ const addTask = async (payload: any) => {
 
   taskData.dueDate = new Date(taskData.dueDate)
 
-  const dependencies = reqDependencies?.map(
+  const dependencies: string[] = reqDependencies?.map(
     (dependency: TRequestDependency) => {
       return dependency.taskId
     },
   )
 
-  const files = reqFiles?.map((file: TRequestfile) => {
+  const files: string[] = reqFiles?.map((file: TRequestfile) => {
     return file.fileLink
   })
 

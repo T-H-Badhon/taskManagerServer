@@ -16,7 +16,10 @@ router.post(
   userControllers.loginUser,
 )
 
-router.get('/')
-router.get('/:userId')
+router.get('/', userControllers.allUsers)
+
+router.get('/:userId', userControllers.oneUser)
+
+router.delete('/:userId', userControllers.deleteUser)
 
 export const userRoutes = router

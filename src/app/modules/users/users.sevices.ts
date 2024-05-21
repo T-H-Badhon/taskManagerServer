@@ -47,7 +47,29 @@ const loginUser = async (loginCredential: TLoginUser) => {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const allUsers = async (query: any) => {
+  const users = await User.find(query).select('-password')
+
+  return users
+}
+
+const oneUser = async (id: string) => {
+  const user = await User.findById({ _id: id }).select('-password')
+
+  return user
+}
+
+const deleteUser = async (id: string) => {
+  const user = await User.findOneAndDelete({ _id: id })
+
+  return user
+}
+
 export const userServices = {
   registerUser,
   loginUser,
+  allUsers,
+  oneUser,
+  deleteUser,
 }

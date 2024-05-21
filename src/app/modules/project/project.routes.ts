@@ -11,9 +11,11 @@ router.post(
   projectControllers.addProject,
 )
 
-router.get('/')
+router.get('/', projectControllers.allProjects)
 
-router.get('/:projectId')
+router.get('/:projectId', projectControllers.oneProject)
+
+router.patch('/:projectId', projectControllers.updateStatus)
 
 router.delete('/delete', projectControllers.deleteProject)
 

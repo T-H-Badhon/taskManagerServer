@@ -21,7 +21,7 @@ router.get('/', projectControllers.allProjects)
 router.get('/:projectId', projectControllers.oneProject)
 
 router.patch(
-  '/:projectId',
+  '/update-status/:projectId',
   auth('ADMIN', 'MANAGER'),
   validate(updatedProjectValidationSchema),
   projectControllers.updateStatus,

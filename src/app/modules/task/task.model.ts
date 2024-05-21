@@ -26,9 +26,8 @@ const taskSchema = new Schema<TTask>(
       default: 'TO-DO',
     },
     taskDependencies: {
-      type: [Schema.Types.ObjectId],
+      type: [String],
       default: [],
-      ref: 'task',
     },
     projectId: {
       type: Schema.Types.ObjectId,

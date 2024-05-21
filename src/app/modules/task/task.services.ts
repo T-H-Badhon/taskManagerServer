@@ -5,16 +5,18 @@ import {
   attachedFilesUpdateManager,
   dependencyUpdateManager,
 } from '../../utilities/arrayElementsUpdate'
-import { Types } from 'mongoose'
 
 const addTask = async (payload: any) => {
   const { reqDependencies, reqFiles, ...taskData } = payload
+
+  taskData.dueDate = new Date(taskData.dueDate)
 
   const dependencies = reqDependencies?.map(
     (dependency: TRequestDependency) => {
       return dependency.taskId
     },
   )
+
   const files = reqFiles?.map((file: TRequestfile) => {
     return file.fileLink
   })
@@ -41,7 +43,7 @@ const oneTask = async (id: string) => {
 }
 
 const updateTask = async (id: string, payload: any) => {
-  const { comments, ReqDependencies, reqFiles, ...updateData } = payload
+  const { comments, reqDependencies, reqFiles, ...updateData } = payload
 
   const updateTask: Partial<TTask> = { ...updateData }
 
@@ -55,13 +57,13 @@ const updateTask = async (id: string, payload: any) => {
     updateTask.comments = currentTask?.comments as string[]
   }
 
-  if (ReqDependencies && ReqDependencies.length > 0) {
+  if (reqDependencies && reqDependencies.length > 0) {
     const dependencies = dependencyUpdateManager(
-      ReqDependencies,
-      currentTask?.taskDependencies as Types.ObjectId[],
+      reqDependencies,
+      currentTask?.taskDependencies as string[],
     )
 
-    updateTask.taskDependencies = dependencies
+    updateTask.taskDependencies = dependencies as string[]
   }
 
   if (reqFiles && reqFiles.length > 0) {

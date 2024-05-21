@@ -6,7 +6,7 @@ export type TTask = {
   dueDate: Date
   priority: 'HIGH' | 'MEDIUM' | 'LOW'
   status: 'TO-DO' | 'IN-PROGRESS' | 'COMPLETED'
-  taskDependencies: Types.ObjectId[]
+  taskDependencies: string[]
   projectId: Types.ObjectId
   assignedEmployeeId: Types.ObjectId
   attachedFiles: string[]
@@ -14,7 +14,7 @@ export type TTask = {
 }
 
 export type TRequestDependency = {
-  taskId: Types.ObjectId
+  taskId: string
   isDeleted: boolean
 }
 export type TRequestfile = {

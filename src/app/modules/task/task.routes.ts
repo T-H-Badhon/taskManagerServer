@@ -29,3 +29,5 @@ router.delete(
   auth('ADMIN', 'MANAGER'),
   taskControllers.deleteTask,
 )
+
+export const taskRoutes = router

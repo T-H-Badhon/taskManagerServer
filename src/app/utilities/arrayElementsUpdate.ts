@@ -1,4 +1,3 @@
-import { Types } from 'mongoose'
 import {
   TRequestDependency,
   TRequestfile,
@@ -6,9 +5,9 @@ import {
 
 export const dependencyUpdateManager = (
   requestedArray: TRequestDependency[],
-  currentElements: Types.ObjectId[],
+  currentElements: string[],
 ) => {
-  const deletedElements = requestedArray.map((element) => {
+  const deletedElements = requestedArray.map((element: TRequestDependency) => {
     if (element.isDeleted) {
       return element.taskId
     }
@@ -21,7 +20,7 @@ export const dependencyUpdateManager = (
   })
 
   const newElements = currentElements?.filter((element) => {
-    if (!deletedElements.includes(element)) {
+    if (deletedElements.length > 0 && !deletedElements.includes(element)) {
       return element
     }
   })

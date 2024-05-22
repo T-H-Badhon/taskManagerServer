@@ -16,9 +16,13 @@ router.post(
   projectControllers.addProject,
 )
 
-router.get('/', projectControllers.allProjects)
+router.get('/', auth('ADMIN', 'MANAGER'), projectControllers.allProjects)
 
-router.get('/:projectId', projectControllers.oneProject)
+router.get(
+  '/:projectId',
+  auth('ADMIN', 'MANAGER', 'EMPLOYEE'),
+  projectControllers.oneProject,
+)
 
 router.patch(
   '/update-status/:projectId',

@@ -13,9 +13,13 @@ router.post(
   taskControllers.addTask,
 )
 
-router.get('/', taskControllers.allTasks)
+router.get('/', auth('ADMIN', 'MANAGER', 'EMPLOYEE'), taskControllers.allTasks)
 
-router.get('/:taskId', taskControllers.oneTask)
+router.get(
+  '/:taskId',
+  auth('ADMIN', 'MANAGER', 'EMPLOYEE'),
+  taskControllers.oneTask,
+)
 
 router.patch(
   '/update/:taskId',

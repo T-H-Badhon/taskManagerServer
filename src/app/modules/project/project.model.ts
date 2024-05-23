@@ -7,6 +7,19 @@ const projectSchema = new Schema<TProject>(
       type: String,
       required: true,
     },
+    createdBy: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'user',
+    },
+    members: {
+      type: [String],
+      default: [],
+    },
+    isOpenJoining: {
+      type: Boolean,
+      default: true,
+    },
     isCompleted: {
       type: Boolean,
       default: false,

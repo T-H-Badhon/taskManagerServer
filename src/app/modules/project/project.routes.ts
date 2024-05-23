@@ -1,40 +1,41 @@
 import { Router } from 'express'
 import { projectControllers } from './project.controllers'
 import validate from '../../middlewares/ValidationFunction'
-import {
-  projectValidationSchema,
-  updatedProjectValidationSchema,
-} from './project.validationScema'
+import { projectValidationSchema } from './project.validationScema'
 import auth from '../../middlewares/auth'
 
 const router = Router()
 
 router.post(
   '/add',
-  auth('ADMIN', 'MANAGER'),
+  auth(),
   validate(projectValidationSchema),
   projectControllers.addProject,
 )
 
-router.get('/', auth('ADMIN', 'MANAGER'), projectControllers.allProjects)
+router.get('/', auth(), projectControllers.allProjects)
 
-router.get(
-  '/:projectId',
-  auth('ADMIN', 'MANAGER', 'EMPLOYEE'),
-  projectControllers.oneProject,
-)
+router.get('/:projectId', auth(), projectControllers.oneProject)
 
 router.patch(
   '/update-status/:projectId',
-  auth('ADMIN', 'MANAGER'),
-  validate(updatedProjectValidationSchema),
+  auth(),
+
   projectControllers.updateStatus,
 )
+router.patch(
+  '/update-joiningStatus/:projectId',
+  auth(),
 
-router.delete(
-  '/delete/:projectId',
-  auth('ADMIN', 'MANAGER'),
-  projectControllers.deleteProject,
+  projectControllers.updateJoiningStatus,
 )
+router.patch('/add-member/:projectId', auth(), projectControllers.addMember)
+router.patch(
+  '/remove-member/:projectId/:memberId',
+  auth(),
+  projectControllers.addMember,
+)
+
+router.delete('/delete/:projectId', auth(), projectControllers.deleteProject)
 
 export const projectRoutes = router

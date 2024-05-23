@@ -8,30 +8,24 @@ const router = Router()
 
 router.post(
   '/add',
-  auth('ADMIN', 'MANAGER'),
+  auth(),
   validate(taskValitdations.taskValidationSchema),
   taskControllers.addTask,
 )
 
-router.get('/', auth('ADMIN', 'MANAGER', 'EMPLOYEE'), taskControllers.allTasks)
+router.get('/', auth(), taskControllers.allTasks)
 
-router.get(
-  '/:taskId',
-  auth('ADMIN', 'MANAGER', 'EMPLOYEE'),
-  taskControllers.oneTask,
-)
+router.get('/my-tasks', auth(), taskControllers.myTasks)
+
+router.get('/:taskId', auth(), taskControllers.oneTask)
 
 router.patch(
-  '/update/:taskId',
-  auth('ADMIN', 'MANAGER'),
+  '/update/my-task/:taskId',
+  auth(),
   validate(taskValitdations.updateTaskValidationSchema),
   taskControllers.updateTask,
 )
 
-router.delete(
-  '/delete/:taskId',
-  auth('ADMIN', 'MANAGER'),
-  taskControllers.deleteTask,
-)
+router.delete('/delete/my-task/:taskId', auth(), taskControllers.deleteTask)
 
 export const taskRoutes = router

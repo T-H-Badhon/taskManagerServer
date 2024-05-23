@@ -6,12 +6,13 @@ export type TTask = {
   dueDate: Date
   priority: 'HIGH' | 'MEDIUM' | 'LOW'
   status: 'TO-DO' | 'IN-PROGRESS' | 'COMPLETED'
+  categoryId?: Types.ObjectId
+  projectId?: Types.ObjectId
+  assignedUserId?: Types.ObjectId
   taskDependencies: string[]
-  categoryId: Types.ObjectId
-  projectId: Types.ObjectId
-  assignedEmployeeId: Types.ObjectId
   attachedFiles: string[]
   comments: string[]
+  createdBy: Types.ObjectId
 }
 
 export type TRequestDependency = {

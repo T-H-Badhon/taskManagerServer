@@ -39,12 +39,27 @@ const oneTask = catchAsync(async (req: Request, res: Response) => {
   })
 })
 
+const myTasks = catchAsync(async (req: Request, res: Response) => {
+  const query = req.query
+
+  const id = req.user._id
+
+  const result = await taskServices.myTasks(id, query)
+  response(res, {
+    success: true,
+    statusCode: 200,
+    message: 'Tasks fetched successful',
+    data: result,
+  })
+})
+
 const updateTask = catchAsync(async (req: Request, res: Response) => {
-  const id = req.params.taskId
+  const taskId = req.params.taskId
+  const userId = req.user._id
 
   const updateData = req.body
 
-  const result = await taskServices.updateTask(id, updateData)
+  const result = await taskServices.updateTask(userId, taskId, updateData)
   response(res, {
     success: true,
     statusCode: 200,
@@ -53,9 +68,11 @@ const updateTask = catchAsync(async (req: Request, res: Response) => {
   })
 })
 const deleteTask = catchAsync(async (req: Request, res: Response) => {
-  const id = req.params.taskId
+  const taskId = req.params.taskId
 
-  const result = await taskServices.deleteTask(id)
+  const userId = req.user._id
+
+  const result = await taskServices.deleteTask(userId, taskId)
   response(res, {
     success: true,
     statusCode: 200,
@@ -68,6 +85,7 @@ export const taskControllers = {
   addTask,
   allTasks,
   oneTask,
+  myTasks,
   updateTask,
   deleteTask,
 }

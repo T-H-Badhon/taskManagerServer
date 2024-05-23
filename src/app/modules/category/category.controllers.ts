@@ -41,9 +41,14 @@ const oneCategory = catchAsync(async (req: Request, res: Response) => {
 })
 
 const updateCategory = catchAsync(async (req: Request, res: Response) => {
-  const id = req.params.categoryId
+  const categoryId = req.params.categoryId
+  const userId = req.user._id
   const updateData = req.body
-  const result = await categoryServices.updateCategory(id, updateData)
+  const result = await categoryServices.updateCategory(
+    userId,
+    categoryId,
+    updateData,
+  )
 
   response(res, {
     success: true,
@@ -54,9 +59,10 @@ const updateCategory = catchAsync(async (req: Request, res: Response) => {
 })
 
 const deleteCategory = catchAsync(async (req: Request, res: Response) => {
-  const id = req.params.categoryId
+  const categoryId = req.params.categoryId
+  const userId = req.user._id
 
-  const result = await categoryServices.deleteCategory(id)
+  const result = await categoryServices.deleteCategory(userId, categoryId)
 
   response(res, {
     success: true,

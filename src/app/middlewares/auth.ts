@@ -8,7 +8,7 @@ import { config } from '../config/config'
 import { AuthError } from '../errors/AuthError'
 import { User } from '../modules/users/users.model'
 
-const auth = (...roles: string[]) => {
+const auth = () => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization
 
@@ -23,11 +23,7 @@ const auth = (...roles: string[]) => {
       throw new AuthError(httpStatus.UNAUTHORIZED, 'Unauthorized Access')
     }
 
-    const { _id, role } = decoded as JwtPayload
-
-    if (!roles.includes(role)) {
-      throw new AppError(httpStatus.UNAUTHORIZED, 'You are not Authorized!')
-    }
+    const { _id } = decoded as JwtPayload
 
     const loginUser = await User.findById(_id)
 

@@ -50,10 +50,34 @@ const oneUser = catchAsync(async (req: Request, res: Response) => {
     data: result,
   })
 })
-const deleteUser = catchAsync(async (req: Request, res: Response) => {
-  const id = req.params.userId
 
-  const result = await userServices.deleteUser(id)
+const getMe = catchAsync(async (req: Request, res: Response) => {
+  const id = req.user._id
+
+  const result = await userServices.getMe(id)
+  response(res, {
+    success: true,
+    statusCode: 200,
+    message: 'User fetched successful',
+    data: result,
+  })
+})
+const updateMe = catchAsync(async (req: Request, res: Response) => {
+  const id = req.user._id
+  const updateData = req.body
+
+  const result = await userServices.updateMe(id, updateData)
+  response(res, {
+    success: true,
+    statusCode: 200,
+    message: 'User updated successful',
+    data: result,
+  })
+})
+const deleteMe = catchAsync(async (req: Request, res: Response) => {
+  const id = req.user._id
+
+  const result = await userServices.deleteMe(id)
   response(res, {
     success: true,
     statusCode: 200,
@@ -67,5 +91,7 @@ export const userControllers = {
   loginUser,
   allUsers,
   oneUser,
-  deleteUser,
+  getMe,
+  updateMe,
+  deleteMe,
 }

@@ -2,6 +2,7 @@ import httpStatus from 'http-status'
 import { AppError } from '../../errors/AppError'
 import { Category } from './category.model'
 import { TCategory } from './category.interface'
+import { Types } from 'mongoose'
 
 const addCategory = async (categoryData: TCategory) => {
   const category = await Category.create(categoryData)
@@ -31,11 +32,18 @@ const oneCategory = async (id: string) => {
   return project
 }
 
-const updateCategory = async (id: string, updateData: TCategory) => {
-  const category = await Category.findById({ _id: id })
+const updateCategory = async (
+  userId: Types.ObjectId,
+  categoryId: string,
+  updateData: TCategory,
+) => {
+  const category = await Category.findById({ _id: categoryId })
 
   if (!category) {
     throw new AppError(httpStatus.NOT_FOUND, 'category not found')
+  }
+  if (category.createdBy != userId) {
+    throw new AppError(httpStatus.UNAUTHORIZED, 'you are not authorized')
   }
 
   const updatedCategory = await Category.findByIdAndUpdate(
@@ -47,8 +55,11 @@ const updateCategory = async (id: string, updateData: TCategory) => {
   return updatedCategory
 }
 
-const deleteCategory = async (id: string) => {
-  const result = await Category.deleteOne({ _id: id })
+const deleteCategory = async (userId: string, categoryId: string) => {
+  const result = await Category.deleteOne({
+    _id: categoryId,
+    createdBy: userId,
+  })
 
   return result
 }

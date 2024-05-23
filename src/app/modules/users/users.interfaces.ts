@@ -5,7 +5,6 @@ export type TUser = {
   email: string
   password: string
   speciality?: string
-  role: 'MANAGER' | 'EMPLOYEE' | 'ADMIN'
 }
 
 export type TLoginUser = {
@@ -15,6 +14,6 @@ export type TLoginUser = {
 
 export type TtokenInfo = {
   _id: Types.ObjectId
+  name: string
   email: string
-  role: 'ADMIN' | 'MANAGER' | 'EMPLOYEE'
 }

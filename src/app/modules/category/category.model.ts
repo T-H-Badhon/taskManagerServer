@@ -8,6 +8,10 @@ const categorySchema = new Schema<TCategory>(
       type: String,
       required: true,
     },
+    createdBy: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+    },
   },
   {
     timestamps: true,

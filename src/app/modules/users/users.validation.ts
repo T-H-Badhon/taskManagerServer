@@ -16,6 +16,9 @@ const userValidationSchema = z.object({
         message: 'password must be alpaneumeric and minimum 6 characters long',
       },
     ),
+    speciality: z
+      .string({ required_error: 'speciality is required' })
+      .optional(),
   }),
 })
 

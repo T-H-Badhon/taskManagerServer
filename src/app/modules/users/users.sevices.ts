@@ -31,7 +31,7 @@ const loginUser = async (loginCredential: TLoginUser) => {
 
     const tokenInfo: TtokenInfo = {
       _id: loginUser._id,
-      role: loginUser.role,
+      name: loginUser.name,
       email: loginUser.email,
     }
     const token = jwt.sign(tokenInfo, config.access_secrate as string, {
@@ -67,8 +67,18 @@ const oneUser = async (id: string) => {
 
   return user
 }
+const getMe = async (id: string) => {
+  const user = await User.findById({ _id: id }).select('-password')
 
-const deleteUser = async (id: string) => {
+  return user
+}
+const updateMe = async (id: string, updateData: Partial<TUser>) => {
+  const user = await User.findByIdAndUpdate({ _id: id }, updateData)
+
+  return user
+}
+
+const deleteMe = async (id: string) => {
   const user = await User.findOneAndDelete({ _id: id })
 
   return user
@@ -79,5 +89,7 @@ export const userServices = {
   loginUser,
   allUsers,
   oneUser,
-  deleteUser,
+  getMe,
+  updateMe,
+  deleteMe,
 }

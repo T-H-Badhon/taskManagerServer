@@ -8,7 +8,6 @@ const router = Router()
 
 router.post(
   '/register',
-  auth('ADMIN'),
   validate(userValitdations.userValidationSchema),
   userControllers.registerUser,
 )
@@ -18,10 +17,14 @@ router.post(
   userControllers.loginUser,
 )
 
-router.get('/', auth('ADMIN', 'MANAGER'), userControllers.allUsers)
+router.get('/', userControllers.allUsers)
 
-router.get('/:userId', auth('ADMIN', 'MANAGER'), userControllers.oneUser)
+router.get('/me', auth(), userControllers.getMe)
 
-router.delete('/:userId', auth('ADMIN', 'MANAGER'), userControllers.deleteUser)
+router.get('/:userId', userControllers.oneUser)
+
+router.patch('/me', auth())
+
+router.delete('/me', auth(), userControllers.deleteMe)
 
 export const userRoutes = router

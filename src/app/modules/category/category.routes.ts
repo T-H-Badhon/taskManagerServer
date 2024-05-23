@@ -9,26 +9,22 @@ const router = Router()
 
 router.post(
   '/add',
-  auth('ADMIN', 'MANAGER'),
+  auth(),
   validate(categoryValidationSchema),
   categoryControllers.addCategory,
 )
 
-router.get('/', categoryControllers.allCategories)
+router.get('/', auth(), categoryControllers.allCategories)
 
-router.get('/:categoryId', categoryControllers.oneCategory)
+router.get('/:categoryId', auth(), categoryControllers.oneCategory)
 
 router.patch(
   '/update/:categoryId',
-  auth('ADMIN', 'MANAGER'),
+  auth(),
   validate(categoryValidationSchema),
   categoryControllers.updateCategory,
 )
 
-router.delete(
-  '/delete/:categoryId',
-  auth('ADMIN', 'MANAGER'),
-  categoryControllers.deleteCategory,
-)
+router.delete('/delete/:categoryId', auth(), categoryControllers.deleteCategory)
 
 export const categoryRoutes = router

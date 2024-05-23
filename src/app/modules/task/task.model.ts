@@ -25,18 +25,21 @@ const taskSchema = new Schema<TTask>(
       enum: ['TO-DO', 'IN-PROGRESS', 'COMPLETED'],
       default: 'TO-DO',
     },
-    taskDependencies: {
-      type: [String],
-      default: [],
+    categoryId: {
+      type: Schema.Types.ObjectId,
+      ref: 'category',
     },
     projectId: {
       type: Schema.Types.ObjectId,
-      required: true,
       ref: 'project',
     },
-    assignedEmployeeId: {
+    assignedUserId: {
       type: Schema.Types.ObjectId,
       ref: 'user',
+    },
+    taskDependencies: {
+      type: [String],
+      default: [],
     },
     attachedFiles: {
       type: [String],
@@ -45,6 +48,11 @@ const taskSchema = new Schema<TTask>(
     comments: {
       type: [String],
       default: [],
+    },
+    createdBy: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'user',
     },
   },
   {

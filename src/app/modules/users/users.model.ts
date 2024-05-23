@@ -19,11 +19,6 @@ const userSchema = new Schema<TUser>(
     speciality: {
       type: String,
     },
-    role: {
-      type: String,
-      enum: ['MANAGER', 'EMPLOYEE', 'ADMIN'],
-      required: true,
-    },
   },
   {
     timestamps: true,
